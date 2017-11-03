@@ -48,3 +48,5 @@ checkHeight3 = function(students.input = students){
 
 checkHeight3(students.input = students)
 
+#1. It is poorly commented.
+#2. Non-performant implementation (mainly because of the for-loop inside the function).
