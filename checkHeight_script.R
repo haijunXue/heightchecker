@@ -16,10 +16,12 @@ students$name = c("Maria", "Franz", "Peter", "Lisa", "Hans", "Eva", "Mia", "Karl
 
 
 checkHeight3 = function(students.input = students){
-  
+  # prepare result data.frame
   result.frame = data.frame(matrix(NA, nrow = nrow(students.input), ncol = 2))
   colnames(result.frame) = c("name", "difference")
+  result.frame$name <- students.input$name
   
+  # calculate sex means for height
   male.mean = students.input %>%
     filter(sex == "M") %>%
     summarise(mean = mean(height))
@@ -27,18 +29,14 @@ checkHeight3 = function(students.input = students){
     filter(sex == "F") %>%
     summarise(mean = mean(height))
   
-  for (i in 1:nrow(students.input)) {
-    # calculate sex-specific deviations from the mean
-    if (students.input[i, "sex"] == "F") {
-      height.diff = 100*(students.input[i,]$height - female.mean$mean)
-    }
-    else {
-      height.diff = 100*(students.input[i, ]$height - male.mean$mean)
-    }
-    result.frame[i, "name"] = as.character(students.input[i, "name"])
-    result.frame[i, "difference"] = height.diff
-  }
+  # calculate the difference and store it the result data.frame
+  result.frame$difference <- apply(students.input, 1, function(stud) {
+    ifelse(stud["sex"] == "M",
+           male.mean - as.numeric(stud["height"]),
+           female.mean - as.numeric(stud["height"])
+    )})
+  
   return(result.frame)
 }
-
 checkHeight3(students.input = students)
+#diese mal ist verbeser
