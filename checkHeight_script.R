@@ -48,3 +48,41 @@ checkHeight3 = function(students.input = students){
 
 checkHeight3(students.input = students)
 
+
+
+
+
+#version 
+check_height_2 <- function(row){
+  #get correct gender name
+  if(row[['sex']] == 'M'){
+    gender = 'man'
+  }else{
+    gender = 'woman'
+  }
+  # Get gender mean height
+  m_height = df %>%
+    filter(sex == row[['sex']]) %>%
+    summarise(mean(height))
+  # get difference from mean
+  x = round((row[['height']]-m_height)*100,digits = 2)[1,1]
+  if (x >= 0) {
+    print(paste0(row[['names']],' is ',x,' cm taller than the average ',gender))
+  } else {
+    print(paste0(row[['names']],' is ',abs(x),' cm smaller than the average ', gender))
+  }
+  
+}
+check_height_2(df[2,])
+
+#
+check_height_3 <- function(df){
+  l <- c()
+  for(i in 1:nrow(df)){
+    l[i] = check_height_2(df[i,])
+  }
+  df2 <- data.frame(df['names'],diff=l)
+  
+}
+check_height_3(df)
+
