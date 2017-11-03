@@ -31,6 +31,6 @@ check_height_3 <- function(df){
 check_height_3(df)
 
 
-
+#comment use apply function
 
 
