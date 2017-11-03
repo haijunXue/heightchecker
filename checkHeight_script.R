@@ -1,8 +1,3 @@
-# Script for simple function that checks the difference in height from the sex-
-# specific mean for each of the students in the given dataframe
-# Date: 24.10.2017
-# Author: Jann Goschenhofer
-
 library(dplyr)
 
 
@@ -20,17 +15,30 @@ students$name = c("Maria", "Franz", "Peter", "Lisa", "Hans", "Eva", "Mia", "Karl
 
 
 
-check_height_3 <- function(df){
-  l <- c()
-  for(i in 1:nrow(df)){
-    l[i] = check_height_2(df[i,])
-  }
-  df2 <- data.frame(df['names'],diff=l)
+checkHeight3 = function(students.input = students){
   
+  result.frame = data.frame(matrix(NA, nrow = nrow(students.input), ncol = 2))
+  colnames(result.frame) = c("name", "difference")
+  
+  male.mean = students.input %>%
+    filter(sex == "M") %>%
+    summarise(mean = mean(height))
+  female.mean = students.input %>%
+    filter(sex == "F") %>%
+    summarise(mean = mean(height))
+  
+  for (i in 1:nrow(students.input)) {
+    # calculate sex-specific deviations from the mean
+    if (students.input[i, "sex"] == "F") {
+      height.diff = 100*(students.input[i,]$height - female.mean$mean)
+    }
+    else {
+      height.diff = 100*(students.input[i, ]$height - male.mean$mean)
+    }
+    result.frame[i, "name"] = as.character(students.input[i, "name"])
+    result.frame[i, "difference"] = height.diff
+  }
+  return(result.frame)
 }
-check_height_3(df)
 
-
-#comment use apply function
-
-
+checkHeight3(students.input = students)
