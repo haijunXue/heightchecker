@@ -1,0 +1,22 @@
+From 4430dd43e44a7401b3e4ea75e178cd11cdb16cc3 Mon Sep 17 00:00:00 2001
+From: haijunXue <xuehaijun793g@gmail.com>
+Date: Fri, 3 Nov 2017 11:37:08 +0100
+Subject: [PATCH] add
+
+---
+ improvement_suggestion.R | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 improvement_suggestion.R
+
+diff --git a/improvement_suggestion.R b/improvement_suggestion.R
+new file mode 100644
+index 0000000..c4491c3
+--- /dev/null
++++ b/improvement_suggestion.R
+@@ -0,0 +1,2 @@
++#1. It is poorly commented.
++#2. Non-performant implementation (mainly because of the for-loop inside the function).
+\ No newline at end of file
+-- 
+2.7.4
+
