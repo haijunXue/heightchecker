@@ -50,3 +50,14 @@ checkHeight3(students.input = students)
 
 #1. It is poorly commented.
 #2. Non-performant implementation (mainly because of the for-loop inside the function).
+
+# improve version
+check_height1_3 <- function(df){
+  l <- c()
+  for(i in 1:nrow(df)){
+    l[i] = check_height_2(df[i,])
+  }
+  df2 <- data.frame(df['names'],diff=l)
+  
+}
+check_height_3(df)
